@@ -1,0 +1,3 @@
+instance-id: ${VM_NAME}-iid
+local-hostname: ${VM_NAME}
+

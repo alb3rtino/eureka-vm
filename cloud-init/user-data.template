@@ -1,0 +1,28 @@
+#cloud-config
+hostname: eureka
+users:
+  - name: ubuntu
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    groups: sudo, docker
+    shell: /bin/bash
+    ssh_authorized_keys:
+      - ${SSH_PUBKEY}
+write_files:
+  - path: /var/lib/cloud/scripts/per-once/provision.sh
+    encoding: b64
+    content: ${PROVISION_SCRIPT_B64}
+    permissions: '0755'
+package_update: true
+packages:
+  - qemu-guest-agent
+  - curl
+  - git
+  - docker.io
+  - docker-compose
+  - docker-compose-v2
+  - docker-buildx
+  - openjdk-21-jdk-headless
+  - maven
+runcmd:
+  - timedatectl set-timezone Europe/Berlin
+  - systemctl enable --now docker
