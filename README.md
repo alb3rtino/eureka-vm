@@ -194,6 +194,8 @@ Host eureka
     HostName eureka
     User ubuntu
     IdentityFile ~/.ssh/id_ed25519
+    StrictHostKeyChecking no
+    UserKnownHostsFile /dev/null
     LocalForward 3000 localhost:3000
     LocalForward 8000 localhost:8000
 ```
