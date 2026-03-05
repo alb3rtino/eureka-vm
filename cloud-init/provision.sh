@@ -23,5 +23,8 @@ su - ubuntu -c "/home/ubuntu/go/bin/eureka-cli help -o"
 # Enable eureka-cli autocompletion
 echo 'source <(eureka-cli completion bash)' >> /home/ubuntu/.bashrc
 
+# Add aliases
+echo "alias resync='sudo systemctl restart systemd-timesyncd.service'" >> /home/ubuntu/.bashrc
+
 # Configure /etc/hosts
 bash /home/ubuntu/eureka-setup/eureka-cli/misc/add-hosts.sh

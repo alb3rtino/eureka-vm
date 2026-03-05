@@ -276,6 +276,8 @@ sync automatically on resume, but it does not always work. To force a datetime s
 sudo systemctl restart systemd-timesyncd
 ```
 
+Alternatively, use the `resync` alias (available after provisioning).
+
 **Shut down:**
 
 ```sh
