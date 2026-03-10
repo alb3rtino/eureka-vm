@@ -235,19 +235,20 @@ traffic.
 
 Since eureka-cli runs inside the VM while the module runs on the host, `host.docker.internal` cannot
 be used as the gateway — inside the VM it resolves to the VM's own Docker bridge, not the physical
-host. Instead, use the host's libvirt bridge IP (`192.168.122.1`):
+host. Instead, use the host's libvirt bridge IP (`192.168.122.1`) for `-m`. The `-s` (sidecar)
+parameter takes the Docker host gateway IP (e.g. `172.17.0.1`), since the custom sidecar is deployed
+as a Docker container inside the VM. The sidecar port can be chosen freely.
 
 ```sh
 eureka-cli interceptModule -n mod-orders \
-  -m http://192.168.122.1:36002 \
-  -s http://192.168.122.1:37002
+  -m http://192.168.122.1:8081 \
+  -s http://172.17.0.1:37002
 ```
 
-**Host firewall** — allow incoming connections from the VM network on the module ports:
+**Host firewall** — allow incoming connections from the VM network on the module port:
 
 ```sh
-sudo ufw allow from 192.168.122.0/24 to any port 36002
-sudo ufw allow from 192.168.122.0/24 to any port 37002
+sudo ufw allow from 192.168.122.0/24 to any port 8081
 ```
 
 **Bind address** — the module in IntelliJ must bind to `192.168.122.1` (the libvirt bridge
