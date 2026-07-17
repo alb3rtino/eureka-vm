@@ -24,7 +24,17 @@ export VM_NAME
 export GO_VERSION
 PROVISION_SCRIPT_B64="$(envsubst '${GO_VERSION}' < cloud-init/provision.sh | base64 -w0)"
 export PROVISION_SCRIPT_B64
-cloud-localds cloud-init.iso <(envsubst < cloud-init/user-data.template) <(envsubst < cloud-init/meta-data.template)
+
+# Render static network configuration if VM_STATIC_IP is set (assumes a /24 network with the gateway at .1)
+NETCFG_OPT=""
+if [ -n "${VM_STATIC_IP:-}" ]; then
+  export VM_STATIC_IP
+  export VM_GATEWAY="${VM_STATIC_IP%.*}.1"
+  envsubst '${VM_STATIC_IP} ${VM_GATEWAY}' < cloud-init/network-config.template > network-config.yaml
+  NETCFG_OPT="--network-config=network-config.yaml"
+fi
+
+cloud-localds $NETCFG_OPT cloud-init.iso <(envsubst < cloud-init/user-data.template) <(envsubst < cloud-init/meta-data.template)
 
 # Check for Ubuntu cloud image, download if missing
 if [ ! -f "$VM_CLOUD_IMG" ]; then
