@@ -102,18 +102,19 @@ automatically on first boot.
 ./virt-install.sh
 ```
 
-**Get the Assigned VM IP Address**
+**VM IP Address**
 
-```sh
-virsh domifaddr eureka-vm # (replace with VM name)
-```
+The VM uses the static IP address `192.168.122.40`, defined as `VM_STATIC_IP` in
+[virt-install.conf](./virt-install.conf). The address stays the same across VM rebuilds.
 
-<sup>ℹ️ The IP address will be displayed once the VM has booted.</sup>
+<sup>ℹ️ If you commented out `VM_STATIC_IP` to use DHCP instead, get the dynamically assigned
+address with `virsh domifaddr eureka-vm` (replace with VM name) once the VM has booted, and use it
+in place of `192.168.122.40` below.</sup>
 
 **Login Via SSH**
 
 ```sh
-ssh ubuntu@192.168.122.116 # (replace with VM IP)
+ssh ubuntu@192.168.122.40 # (VM_STATIC_IP from virt-install.conf)
 ```
 
 <sup>ℹ️ The VM is accessible before provisioning is complete. Run `cloud-init status --wait` after
@@ -134,11 +135,11 @@ eureka-cli deployApplication
 
 **Configure Host Access**
 
-Add the following entry to your host's `/etc/hosts`, replacing `192.168.122.116` with your VM's
-actual IP address:
+Add the following entry to your host's `/etc/hosts` (the address is `VM_STATIC_IP` from
+[virt-install.conf](./virt-install.conf)):
 
 ```
-192.168.122.116 eureka postgres.eureka kafka.eureka vault.eureka keycloak.eureka kong.eureka
+192.168.122.40 eureka postgres.eureka kafka.eureka vault.eureka keycloak.eureka kong.eureka
 ```
 
 **Monitor System Components**
@@ -194,6 +195,8 @@ Host eureka
     HostName eureka
     User ubuntu
     IdentityFile ~/.ssh/id_ed25519
+    StrictHostKeyChecking no
+    UserKnownHostsFile /dev/null
     LocalForward 3000 localhost:3000
     LocalForward 8000 localhost:8000
 ```
