@@ -16,8 +16,7 @@ echo 'export PATH=$PATH:/home/ubuntu/go/bin' >> /home/ubuntu/.bashrc
 # Build and install eureka-cli
 su - ubuntu -c "cd /home/ubuntu/eureka-setup/eureka-cli && /usr/local/go/bin/go install"
 
-# Initialize .eureka directory and fix permissions
-su - ubuntu -c "mkdir /home/ubuntu/.eureka"
+# Initialize .eureka home directory with config files
 su - ubuntu -c "/home/ubuntu/go/bin/eureka-cli help -o"
 
 # Enable eureka-cli autocompletion
