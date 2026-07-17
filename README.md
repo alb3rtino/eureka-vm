@@ -118,7 +118,7 @@ ssh ubuntu@192.168.122.116 # (replace with VM IP)
 
 <sup>ℹ️ The VM is accessible before provisioning is complete. Run `cloud-init status --wait` after
 login to wait for provisioning to finish, or follow progress with
-`tail -f /var/log/cloud-init-output.log`. Run `cloud-init status --long` to check for errors after
+`sudo tail -f /var/log/cloud-init-output.log`. Run `cloud-init status --long` to check for errors after
 completion. Once provisioning is done, log out and back in or run `source ~/.bashrc` to make `go`
 and `eureka-cli` available in your session.</sup>
 
