@@ -21,8 +21,7 @@ fi
 SSH_PUBKEY="$(cat "$SSH_PUBKEY_PATH")"
 export SSH_PUBKEY
 export VM_NAME
-export GO_VERSION
-PROVISION_SCRIPT_B64="$(envsubst '${GO_VERSION}' < cloud-init/provision.sh | base64 -w0)"
+PROVISION_SCRIPT_B64="$(base64 -w0 cloud-init/provision.sh)"
 export PROVISION_SCRIPT_B64
 
 # Render static network configuration if VM_STATIC_IP is set (assumes a /24 network with the gateway at .1)
