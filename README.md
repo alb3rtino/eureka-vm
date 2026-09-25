@@ -144,16 +144,16 @@ Add the following entry to your host's `/etc/hosts` (the address is `VM_STATIC_I
 
 **Monitor System Components**
 
-| Service                      | URL                         | Credentials                 |
-| ---------------------------- | --------------------------- | --------------------------- |
-| FOLIO UI (see section below) | http://localhost:3000       | `diku_admin` / `admin`      |
-| Keycloak                     | http://keycloak.eureka:8080 | `admin` / `admin`           |
-| Kong Admin GUI               | http://kong.eureka:8002     | —                           |
-| Vault                        | http://vault.eureka:8200    | `admin` / `admin`           |
-| Kafka UI                     | http://eureka:9080          | —                           |
-| MinIO Console                | http://eureka:9001          | `minioadmin` / `minioadmin` |
-| Dozzle (container logs)      | http://eureka:8888          | —                           |
-| Kibana                       | http://eureka:15601         | —                           |
+| Service                      | URL                         | Credentials                                               |
+| ---------------------------- | --------------------------- | --------------------------------------------------------- |
+| FOLIO UI (see section below) | http://localhost:3000       | `diku_admin` / `admin`                                    |
+| Keycloak                     | http://keycloak.eureka:8080 | `admin` / `admin`                                         |
+| Kong Admin GUI               | http://kong.eureka:8002     | —                                                         |
+| Vault                        | http://vault.eureka:8200    | `admin` / `admin`                                         |
+| Kafka UI                     | http://eureka:9080          | —                                                         |
+| Garage S3 (no console)       | http://eureka:3903/health   | `eurekaadmin` / `eurekaadminsecret` (S3 API on port 3900) |
+| Dozzle (container logs)      | http://eureka:8888          | —                                                         |
+| Kibana                       | http://eureka:15601         | —                                                         |
 
 # 🔄 Updating eureka-cli
 
