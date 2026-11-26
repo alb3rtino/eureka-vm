@@ -30,3 +30,7 @@ echo "alias resync='sudo systemctl restart systemd-timesyncd.service'" >> /home/
 
 # Configure /etc/hosts
 bash /home/ubuntu/eureka-setup/eureka-cli/misc/scripts/add-hosts.sh
+
+# host.docker.internal is undefined on native Linux, and the VM's DNS does not answer for .internal names,
+# so without this entry every eureka-cli command waits for a DNS timeout before using the Docker bridge address
+echo '172.17.0.1 host.docker.internal' >> /etc/hosts
